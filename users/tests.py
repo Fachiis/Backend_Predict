@@ -1,3 +1,4 @@
 from django.test import TestCase
 
-# Create your tests here.
+# There no need carrying out test on built in functionality as
+# Django has already tested it.
