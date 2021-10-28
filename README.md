@@ -19,9 +19,9 @@ Enforcement.
 
 ---
 ## Screenshots
-![](/home/fachiis/Pictures/needed.png)
-![](/home/fachiis/Pictures/needed2.png)
-![](/home/fachiis/Pictures/needed3.png)
+![](statics/images/needed.png)
+![](statics/images/needed2.png)
+![](statics/images/needed3.png)
 
 ---
 ## Table of Contents
