@@ -8,10 +8,10 @@ User = get_user_model()
 
 
 class PostTest(TestCase):
-
+    """Test the posts app"""
     def setUp(self):
         """The set up test data for the post test using class method instead of object methods"""
-        # Create a
+        # Create a user
         self.test_user = User.objects.create_user(
             username="fachiis",
             password="1234"
@@ -25,6 +25,7 @@ class PostTest(TestCase):
         )
 
     def test_post_content(self):
+        """Test the post content"""
         post = Post.objects.get(id=1)
         author = f'{post.author}'
         title = f'{post.title}'

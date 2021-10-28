@@ -4,6 +4,7 @@ from posts.models import Post, Like
 
 
 class PostSerializer(serializers.ModelSerializer):
+    """The Post Model serializer class"""
     author = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
@@ -12,6 +13,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class LikeSerializer(serializers.ModelSerializer):
+    """The Like Model serializer class"""
     user = serializers.ReadOnlyField(source='user.username')
     post = serializers.ReadOnlyField(source='post.title')
     value = serializers.ReadOnlyField()

@@ -4,6 +4,7 @@ from django.urls import reverse
 
 
 class Post(models.Model):
+    """Post model used in creating a Post table with respective fields and methods"""
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -38,6 +39,7 @@ class Post(models.Model):
 
 
 class Like(models.Model):
+    """Like Model use to create the Like table with respective fields and a string representation method of the model"""
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

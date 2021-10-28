@@ -8,16 +8,19 @@ from posts.models import Post, Like
 
 
 class PostCreate(generics.CreateAPIView):
+    """Create a post object (POST method)"""
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
     def perform_create(self, serializer):
+        """Fetch the current logged in user and pass it to the author field of the Post"""
         user = self.request.user
         serializer.save(author=user)
 
 
 class PostList(APIView):
+    """Get all posts objects (GET method)"""
     def get(self, request):
         posts = Post.objects.all()
         serializer = PostSerializer(posts, many=True)
@@ -25,6 +28,7 @@ class PostList(APIView):
 
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Get a single post object, update or delete the object (GET{id}, PUT, PATCH, DELETE)"""
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -35,8 +39,8 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class LikeCreate(APIView):
+    """Create a like on a single post object, check if user has already liked else pass in user"""
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = Like.objects.all()
     serializer_class = LikeSerializer
 
     def post(self, request, pk):
