@@ -3,6 +3,7 @@ from django.test import TestCase
 
 from posts.models import Post
 
+# initialize the User app
 User = get_user_model()
 
 
@@ -17,7 +18,7 @@ class PostTest(TestCase):
         )
 
         # Create a post
-        test_post = Post.objects.create(
+        self.test_post = Post.objects.create(
             author=self.test_user,
             title="Grace",
             body="Yes, it is by His Grace alone",

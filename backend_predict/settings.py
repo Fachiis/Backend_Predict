@@ -21,7 +21,6 @@ environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -34,20 +33,31 @@ DEBUG = int(env("DEBUG", default=0))
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    # Django Built-In Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # Local Applications
+    'django.contrib.sites',
+
+    # Third Party Apps
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
+
+    # Local Apps
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'apis.apps.ApisConfig',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +90,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend_predict.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -92,7 +101,6 @@ DATABASES = {
         },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -112,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -126,7 +133,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -138,3 +144,30 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.CustomUser"
+
+# Default Permission Setting for REST
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # For browsable api and ability to log in and log out of it
+        'rest_framework.authentication.SessionAuthentication',
+        # For passing of authentication credentials to and fro in HTTP headers
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
+
+# Email back-end config is needed since by default an email will be sent when a new
+# user is registered, asking them to confirm their account
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Django allauth default config
+SITE_ID = 1
+
+# The Login Session and Logout config for swagger URL
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+}
